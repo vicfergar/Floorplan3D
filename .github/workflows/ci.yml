@@ -10,7 +10,7 @@ on:
 
 env:
   # Customize the dotnet build type here (Release, Debug, etc.)
-  BUILD_TYPE: release
+  build_type: Release
 
 jobs:
   build:
@@ -36,6 +36,6 @@ jobs:
     - name: Restore dependencies
       run: dotnet restore ${{ matrix.solution_path }}
     - name: Build
-      run: dotnet build --no-restore ${{ matrix.solution_path }} --configuration $BUILD_TYPE
+      run: dotnet build --no-restore ${{ matrix.solution_path }} --configuration ${{ env.build_type }}
     #- name: Test
     #  run: dotnet test --no-restore ${{ matrix.solution_path }}
