@@ -6,6 +6,7 @@
     <UseWindowsForms>true</UseWindowsForms>
   </PropertyGroup>
   <ItemGroup>
+    <PackageReference Include="Svg" Version="3.1.1" />
     <PackageReference Include="WaveEngine.DirectX11" Version="3.1.0.6768-preview2" />
     <PackageReference Include="WaveEngine.HLSLEverywhere" Version="3.1.0.6768-preview2" />
     <PackageReference Include="WaveEngine.XAudio2" Version="3.1.0.6768-preview2" />

@@ -1,6 +1,9 @@
-using WaveEngine.Common.Graphics;
+using WaveEngine.Components.Graphics3D;
 using WaveEngine.Framework;
 using WaveEngine.Framework.Graphics;
+using WaveEngine.Framework.Graphics.Batchers;
+using WaveEngine.Framework.Services;
+using WaveEngine.Mathematics;
 
 namespace Floorplan3D
 {
@@ -8,10 +11,21 @@ namespace Floorplan3D
     {
         protected override void CreateScene()
         {
-            base.CreateScene();
+            this.AvoidBrowserFreeze();
 
+        }
+
+        private void AvoidBrowserFreeze()
+        {
             var camera = this.Managers.EntityManager.FindFirstComponentOfType<Camera3D>();
             camera.AutoExposureEnabled = false;
+
+            //if (DeviceInfo.PlatformType == PlatformType.Web)
+            {
+                var meshRenderFeature = this.Managers.RenderManager.FindRenderFeature<MeshRenderFeature>();
+                var dynamicBatchMeshProcessor = meshRenderFeature.FindMeshProcessor<DynamicBatchMeshProcessor>();
+                dynamicBatchMeshProcessor.IsActivated = false;
+            }
         }
     }
 }

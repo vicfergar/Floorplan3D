@@ -6,6 +6,10 @@
     <UseWindowsForms>true</UseWindowsForms>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="..\Floorplan3D.Windows\DesktopMDITextureLoader.cs" Link="DesktopMDITextureLoader.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Svg" Version="3.1.1" />
     <PackageReference Include="WaveEngine.OpenGL" Version="3.1.0.6768-preview2" />
     <PackageReference Include="WaveEngine.HLSLEverywhere" Version="3.1.0.6768-preview2" />
     <PackageReference Include="WaveEngine.XAudio2" Version="3.1.0.6768-preview2" />

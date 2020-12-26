@@ -32,7 +32,9 @@ namespace Floorplan3D.Web
             appCanvas[canvasId] = surface;
 
             var supportWebGL2 = canvas.Invoke("getContext", "webgl2") != null;
-            ConfigureGraphicsContext(application, surface, supportWebGL2 ? GraphicsBackend.WebGL2 : GraphicsBackend.WebGL1);
+            var webGLBackend = supportWebGL2 ? GraphicsBackend.WebGL2 : GraphicsBackend.WebGL1;
+            ConfigureGraphicsContext(application, surface, webGLBackend);
+            application.Container.RegisterInstance(new WebMDITextureLoader(canvas, webGLBackend));
 
             // Audio is currently unsupported
             //var xaudio = new WaveEngine.XAudio2.XAudioDevice();

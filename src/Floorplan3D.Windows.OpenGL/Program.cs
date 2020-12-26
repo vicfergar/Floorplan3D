@@ -20,6 +20,8 @@ namespace Floorplan3D.Windows.OpenGL
             application.Container.RegisterInstance(windowsSystem);
             var window = windowsSystem.CreateWindow("Floorplan3D - OpenGL", width, height);
 
+            application.Container.RegisterInstance(new DesktopMDITextureLoader());
+
             ConfigureGraphicsContext(application, window);
 			
 			// Creates XAudio device

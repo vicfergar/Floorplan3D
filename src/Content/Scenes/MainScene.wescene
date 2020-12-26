@@ -102,7 +102,7 @@ Items:
         Id: bb44cd62-4d92-418a-8a42-bbc2ed2b6f07
         AsignedTo: Default
         IsEnabled: true
-        Material: e6776136-3412-4c83-af76-2bcba96ba6e5
+        Material: 82664063-94e2-4272-a24e-1c15f1287792
       - !WaveEngine.Components.Graphics3D.SphereMesh,WaveEngine.Components
         Id: 3ef37285-f016-4173-bbf0-278ec1624224
         Diameter: 1.0
@@ -267,6 +267,10 @@ Items:
                   Y: 1.0
                   Z: 0.0
                 UsePhysicalParameters: false
+              - !Floorplan3D.InteractionController,Floorplan3D
+                Id: 08a0ffc9-272e-4c96-a44a-b579742537eb
+                IsEnabled: true
+                UpdateOrder: 0.5
             Children: []
             Id: 9841b6b3-9c09-4b60-b442-a5c63257ee02
         Id: e7917634-2206-47f1-b0f5-3de9e4cd5c00
@@ -314,4 +318,124 @@ Items:
         OrderBias: 0
     Children: []
     Id: 19a1c044-764d-407e-a3e5-52a5af9ffc28
+  - !WaveEngine.Framework.Assets.AssetSources.Entities.EntityItemModel,WaveEngine.Framework
+    Name: iconTile
+    Tag: null
+    IsEnabled: true
+    IsStatic: false
+    Components:
+      - !WaveEngine.Framework.Graphics.Transform3D,WaveEngine.Framework
+        Id: 8e38747b-50b3-4c92-a1ac-5912f1f2ca31
+        IsEnabled: true
+        LocalOrientation:
+          W: 1.0
+          X: 0.0
+          Y: 0.0
+          Z: 0.0
+        LocalPosition:
+          X: -1.27170217
+          Y: 0.5
+          Z: 1.42669833E-07
+        LocalScale:
+          X: 1.0
+          Y: 1.0
+          Z: 1.0
+      - !Floorplan3D.IconTileComponent,Floorplan3D
+        Id: c5d404d4-2a9a-4a79-a286-7f725bf1caf7
+        IconId: lightbulb
+        IsEnabled: true
+        IsLight: true
+        IsOn: false
+        OffColor:
+          A: 255
+          B: 255
+          G: 255
+          R: 255
+        OnColor:
+          A: 255
+          B: 53
+          G: 216
+          R: 253
+    Children: []
+    Id: 1d1672c4-354c-47a4-866d-61cc13a49fda
+  - !WaveEngine.Framework.Assets.AssetSources.Entities.EntityItemModel,WaveEngine.Framework
+    Name: iconTile2
+    Tag: null
+    IsEnabled: true
+    IsStatic: false
+    Components:
+      - !WaveEngine.Framework.Graphics.Transform3D,WaveEngine.Framework
+        Id: 9bc569c1-41cc-47b8-aa72-481db6f1f817
+        IsEnabled: true
+        LocalOrientation:
+          W: 1.0
+          X: 0.0
+          Y: 0.0
+          Z: 0.0
+        LocalPosition:
+          X: -0.425390363
+          Y: 0.5
+          Z: 4.47594488E-07
+        LocalScale:
+          X: 1.0
+          Y: 1.0
+          Z: 1.0
+      - !Floorplan3D.IconTileComponent,Floorplan3D
+        Id: ccbeddf9-bc86-43da-885a-798fdcac8773
+        IconId: lightbulb
+        IsEnabled: true
+        IsLight: true
+        IsOn: false
+        OffColor:
+          A: 255
+          B: 255
+          G: 255
+          R: 255
+        OnColor:
+          A: 255
+          B: 53
+          G: 253
+          R: 86
+    Children: []
+    Id: 429e757d-7945-4255-be84-a704c7bc4429
+  - !WaveEngine.Framework.Assets.AssetSources.Entities.EntityItemModel,WaveEngine.Framework
+    Name: iconTile3
+    Tag: null
+    IsEnabled: true
+    IsStatic: false
+    Components:
+      - !WaveEngine.Framework.Graphics.Transform3D,WaveEngine.Framework
+        Id: e1d27c18-8b38-48fa-a321-834271c5e318
+        IsEnabled: true
+        LocalOrientation:
+          W: 1.0
+          X: 0.0
+          Y: 0.0
+          Z: 0.0
+        LocalPosition:
+          X: 0.271797568
+          Y: 0.5
+          Z: 8.38266317E-07
+        LocalScale:
+          X: 1.0
+          Y: 1.0
+          Z: 1.0
+      - !Floorplan3D.IconTileComponent,Floorplan3D
+        Id: 53e09d2a-8372-49f2-ac21-442fd40ea61b
+        IconId: fan
+        IsEnabled: true
+        IsLight: false
+        IsOn: false
+        OffColor:
+          A: 255
+          B: 255
+          G: 255
+          R: 255
+        OnColor:
+          A: 255
+          B: 53
+          G: 216
+          R: 253
+    Children: []
+    Id: e967632c-210b-4c5f-887f-69d7918aa2f9
 Managers: []
