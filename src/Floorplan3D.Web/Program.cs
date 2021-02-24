@@ -1,5 +1,7 @@
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Threading.Tasks;
 using WaveEngine.Common.Graphics;
 using WaveEngine.Framework;
 using WaveEngine.Framework.Graphics;
@@ -53,6 +55,23 @@ namespace Floorplan3D.Web
                     application.UpdateFrame(gameTime);
                     application.DrawFrame(gameTime);
                 });
+        }
+
+        private static async Task<(string url, string token)> GetHassAuthAsync()
+        {
+            if (WebAssemblyExtensions.TryGetGlobalObject<JSObject>("top", out var top))
+            {
+                var hass = await top.GetObjectPropertyAsync<JSObject>("hassConnection");
+                if (hass.TryGetObjectProperty<JSObject>("auth", out var auth) &&
+                    auth.TryGetObjectProperty<JSObject>("data", out var data) &&
+                    data.TryGetObjectProperty<string>("hassUrl", out var hassUrl) &&
+                    data.TryGetObjectProperty<string>("access_token", out var accessToken))
+                {
+                    return (hassUrl, accessToken);
+                }
+            }
+
+            throw new InvalidOperationException("An error occurred while retrieving Home Assistant authentication data.");
         }
 
         public static void UpdateCanvasSize(string canvasId)

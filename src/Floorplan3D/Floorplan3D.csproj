@@ -1,11 +1,12 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <TargetFramework>netstandard2.0</TargetFramework>
+    <TargetFramework>netstandard2.1</TargetFramework>
     <GenerateWaveContent>True</GenerateWaveContent>
     <GenerateWaveAssets>False</GenerateWaveAssets>
   </PropertyGroup>
   <ItemGroup>
+    <PackageReference Include="HassClient.WS" Version="1.0.1" />
     <PackageReference Include="WaveEngine.Common" Version="3.1.0.6768-preview2" />
     <PackageReference Include="WaveEngine.Components" Version="3.1.0.6768-preview2" />
     <PackageReference Include="WaveEngine.Framework" Version="3.1.0.6768-preview2" />

@@ -13,4 +13,6 @@
   <assembly fullname="WaveEngine.Web" />
   <assembly fullname="WaveEngine.Yaml" />
   <assembly fullname="WaveEngine.HLSLEverywhere" />
+  <assembly fullname="HassClient.Core" />
+  <assembly fullname="HassClient.WS" />
 </linker>
