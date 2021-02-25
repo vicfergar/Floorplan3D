@@ -31,6 +31,7 @@ namespace Floorplan3D.Windows.OpenGL
             () =>
             {
                 application.Initialize();
+                application.ConnectToHassUsingCredentialsFile();
             },
             () =>
             {

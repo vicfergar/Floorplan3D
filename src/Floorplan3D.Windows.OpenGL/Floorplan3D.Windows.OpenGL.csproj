@@ -6,6 +6,11 @@
     <UseWindowsForms>true</UseWindowsForms>
   </PropertyGroup>
   <ItemGroup>
+    <Content Include="..\Floorplan3D.Windows\credentials.json" Link="credentials.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
     <PackageReference Include="WaveEngine.OpenGL" Version="3.1.0.6768-preview2" />
     <PackageReference Include="WaveEngine.HLSLEverywhere" Version="3.1.0.6768-preview2" />
     <PackageReference Include="WaveEngine.XAudio2" Version="3.1.0.6768-preview2" />

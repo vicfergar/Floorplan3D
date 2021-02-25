@@ -1,6 +1,8 @@
+using Newtonsoft.Json;
+using System.Diagnostics;
+using System.IO;
 using WaveEngine.Framework;
 using WaveEngine.Framework.Services;
-using WaveEngine.Framework.Threading;
 using WaveEngine.Platform;
 
 namespace Floorplan3D
@@ -32,6 +34,22 @@ namespace Floorplan3D
             var scene = assetsService.Load<MainScene>(WaveContent.Scenes.MainScene_wescene);
             ScreenContext screenContext = new ScreenContext(scene);
             screenContextManager.To(screenContext);
+        }
+
+        public void ConnectToHassUsingCredentialsFile()
+        {
+            const string CredentialsFile = "credentials.json";
+
+            if (File.Exists(CredentialsFile))
+            {
+                var fileStr = File.ReadAllText(CredentialsFile);
+                var typeDefinition = new { instanceBaseUrl = "", accessToken = "" };
+                var credentials = JsonConvert.DeserializeAnonymousType(fileStr, typeDefinition);
+            }
+            else
+            {
+                Trace.TraceWarning($"Credentials file not found at: {Path.GetFullPath(CredentialsFile)}");
+            }
         }
     }
 }

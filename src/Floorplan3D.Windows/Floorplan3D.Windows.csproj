@@ -19,4 +19,9 @@
   <ItemGroup Condition="$(DefineConstants.Contains('WAVEENGINE_EDITOR'))">
     <ProjectReference Include="..\Floorplan3D.Editor\Floorplan3D.Editor.csproj" />
   </ItemGroup>
+  <ItemGroup>
+    <None Update="credentials.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
 </Project>

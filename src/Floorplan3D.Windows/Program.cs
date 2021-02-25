@@ -21,8 +21,8 @@ namespace Floorplan3D.Windows
             var window = windowsSystem.CreateWindow("Floorplan3D - DX11", width, height);
 
             ConfigureGraphicsContext(application, window);
-			
-			// Creates XAudio device
+
+            // Creates XAudio device
             var xaudio = new WaveEngine.XAudio2.XAudioDevice();
             application.Container.RegisterInstance(xaudio);
 
@@ -31,6 +31,7 @@ namespace Floorplan3D.Windows
             () =>
             {
                 application.Initialize();
+                application.ConnectToHassUsingCredentialsFile();
             },
             () =>
             {
