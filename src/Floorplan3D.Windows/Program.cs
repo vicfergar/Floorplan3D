@@ -11,7 +11,7 @@ namespace Floorplan3D.Windows
         static void Main(string[] args)
         {
             // Create app
-            MainApplication application = new MainApplication();
+            var application = new MainApplication();
 
             // Create Services
             uint width = 1280;

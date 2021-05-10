@@ -1,15 +1,18 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
 <Project Sdk="Microsoft.NET.Sdk">
+
   <PropertyGroup>
-    <TargetFramework>netstandard2.0</TargetFramework>
+    <TargetFramework>netstandard2.1</TargetFramework>
   </PropertyGroup>
+
   <ItemGroup>
-    <PackageReference Include="WaveEngine.Common" Version="3.1.0.6768-preview2" />
-    <PackageReference Include="WaveEngine.Components" Version="3.1.0.6768-preview2" />
-    <PackageReference Include="WaveEngine.Framework" Version="3.1.0.6768-preview2" />
-    <PackageReference Include="WaveEngine.Editor.Extension" Version="3.1.0.6768-preview2" />
+    <PackageReference Include="WaveEngine.Common" Version="3.2.0.7787-preview" />
+    <PackageReference Include="WaveEngine.Components" Version="3.2.0.7787-preview" />
+    <PackageReference Include="WaveEngine.Framework" Version="3.2.0.7787-preview" />
+    <PackageReference Include="WaveEngine.Editor.Extension" Version="3.2.0.7787-preview" />
   </ItemGroup>
+
   <ItemGroup>
     <ProjectReference Include="..\Floorplan3D\Floorplan3D.csproj" />
   </ItemGroup>
+
 </Project>

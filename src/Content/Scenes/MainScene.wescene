@@ -1,7 +1,7 @@
 !WaveEngine.Framework.Assets.AssetSources.Entities.SceneModel,WaveEngine.Framework
 Items:
   - !WaveEngine.Framework.Assets.AssetSources.Entities.EntityItemModel,WaveEngine.Framework
-    Name: EnvironmentManager
+    Name: SceneManagers
     Tag: null
     IsEnabled: true
     IsStatic: false
@@ -27,6 +27,14 @@ Items:
         IntensityMultiplier: 1.0
         IsEnabled: true
         ReflectionProbe: cb4c9738-03a0-494f-a839-20a22581fb59
+      - !WaveEngine.Components.Graphics3D.ShadowMapComponent,WaveEngine.Framework
+        Id: 4dc7a18d-bde5-4e59-8c0c-67b68a42207e
+        AutoDepthBounds: false
+        DirectionalResolution: Size_1024
+        IsEnabled: true
+        PunctualResolution: Size_512
+        ShadowFilter: PCF7x7
+        SpotResolution: Size_512
     Children: []
     Id: 3aea6832-ccae-4bc6-9bb7-64229c7c2de0
   - !WaveEngine.Framework.Assets.AssetSources.Entities.EntityItemModel,WaveEngine.Framework
@@ -59,18 +67,16 @@ Items:
           G: 240
           R: 249
         ColorByTemperature: true
-        DepthBias: 0.0
-        Illuminance: 3.0
+        Illuminance: 10.0
         Intensity: 3.0
         IsEnabled: true
-        IsShadowEnabled: false
         LinearColor:
           A: 0.0
           B: 0.77908951
           G: 0.874792635
           R: 0.9453125
-        ShadowsOpacity: 0.0
         Temperature: 6500.0
+        IsShadowEnabled: true
       - !WaveEngine.Framework.Graphics.SunComponent,WaveEngine.Framework
         Id: 6f2b70f3-a505-49a6-9454-130b04d48cd3
         IsEnabled: true
@@ -102,20 +108,17 @@ Items:
         Id: bb44cd62-4d92-418a-8a42-bbc2ed2b6f07
         AsignedTo: Default
         IsEnabled: true
-        Material: e6776136-3412-4c83-af76-2bcba96ba6e5
+        Material: d418b16b-5f56-4dcd-acfb-d024c3ea1e71
       - !WaveEngine.Components.Graphics3D.SphereMesh,WaveEngine.Components
         Id: 3ef37285-f016-4173-bbf0-278ec1624224
         Diameter: 1.0
         IsEnabled: true
-        Model: 00000000-0000-0000-0000-000000000000
-        ModelMeshName: sphere_primitive
         Tessellation: 32
         UVHorizontalFlip: false
         UVVerticalFlip: false
       - !WaveEngine.Components.Graphics3D.MeshRenderer,WaveEngine.Framework
         Id: 1665742b-454f-4cda-9b9b-df6698342e5d
         DebugBoundingbox: true
-        IsCastShadows: false
         IsCullingEnabled: false
         IsEnabled: true
         OrderBias: 0
@@ -203,22 +206,31 @@ Items:
                 Id: 809f1d2c-2305-4916-acfe-f81399ffb235
                 IsEnabled: true
                 LocalOrientation:
-                  W: 0.960049868
-                  X: -0.279828995
-                  Y: -0.0
-                  Z: -0.0
+                  W: 0.923879564
+                  X: -0.382683396
+                  Y: 0.0
+                  Z: 0.0
                 LocalPosition:
                   X: 0.0
                   Y: 2.0
-                  Z: 3.0
+                  Z: 2.0
                 LocalScale:
                   X: 1.0
                   Y: 1.0
                   Z: 1.0
+              - !WaveEngine.Components.Cameras.FreeCamera3D,WaveEngine.Components
+                Id: 07d3e21d-cd4b-412f-88a6-1331d8afa583
+                IsEnabled: true
+                MaxPitch: 1.49225616
+                MouseSensibility: 0.0299999993
+                Speed: 5.0
+                TouchMoveAndOrientationRatio: 0.5
+                TouchSensibility: 1.0
+                UpdateOrder: 0.5
               - !WaveEngine.Framework.Graphics.Camera3D,WaveEngine.Framework
                 Id: 5b10653e-93d2-48e7-884f-a07b2ac173ee
                 Aperture: 1.0
-                AspectRatio: 2.30909085
+                AspectRatio: 1.85806453
                 AutoExposureEnabled: false
                 CameraOrder: 0.0
                 ClearDepth: 1.0
@@ -229,7 +241,7 @@ Items:
                   MaxDepth: 1.0
                   MinDepth: 0.0
                 DisplayTag: null
-                DisplayTagDirty: false
+                DisplayTagDirty: true
                 Exposure: 1.0
                 FarPlane: 1000.0
                 FieldOfView: 0.785398185
@@ -249,10 +261,10 @@ Items:
                 MinLogLuminance: -10.0
                 NearPlane: 0.100000001
                 ScreenViewport:
-                  Height: 165.0
+                  Height: 310.0
                   MaxDepth: 1.0
                   MinDepth: 0.0
-                  Width: 381.0
+                  Width: 576.0
                   X: 0.0
                   Y: 0.0
                 Sensitivity: 100.0

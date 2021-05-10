@@ -65,7 +65,11 @@ namespace Floorplan3D.Web
 
         private static void ConfigureGraphicsContext(Application application, Surface surface, GraphicsBackend graphicsBackend)
         {
-            System.Diagnostics.Trace.WriteLine($"GraphicsBackend: {graphicsBackend}");
+            // Enabled web canvas antialias (MSAA)
+            //Runtime.InvokeJS("EGL.contextAttributes.antialias = true;");
+            //Runtime.InvokeJS("EGL.contextAttributes.preserveDrawingBuffer = true;");
+
+            Trace.WriteLine($"GraphicsBackend: {graphicsBackend}");
             var graphicsContext = new GLGraphicsContext(graphicsBackend);
             graphicsContext.CreateDevice();
 
