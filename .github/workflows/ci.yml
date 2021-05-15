@@ -1,0 +1,61 @@
+name: CI
+
+on:
+  pull_request:
+    paths:
+      - 'src/*'
+  push:
+    branches-ignore:
+      - master
+
+env:
+  # Customize the dotnet build type here (Release, Debug, etc.)
+  build_type: Release
+  emscripten_version: 1.39.18
+
+jobs:
+  build:
+    name: ${{ matrix.profile }}
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        profile: [windows-desktop, web]
+        include:
+          - profile: windows-desktop
+            os: windows-latest
+            solution_path: src/Floorplan3D.Windows.OpenGL.sln
+          - profile: web
+            os: ubuntu-latest 
+            solution_path: src/Floorplan3D.Web.sln
+
+    steps:
+    - uses: actions/checkout@v2      
+    - name: Setup .NET Core 3.1
+      uses: actions/setup-dotnet@v1
+      with:
+        dotnet-version: 3.1.x
+    - name: Setup .NET 5.0
+      uses: actions/setup-dotnet@v1
+      with:
+        dotnet-version: 5.0.x
+    - name: Install dependencies (ninja, mono, ...)
+      if: ${{ matrix.profile == 'web' }}
+      run: ./build/deps-setup.sh
+    - name: Install emscripten
+      if: ${{ matrix.profile == 'web' }}
+      run: ./build/emscripten-setup.sh ${{ runner.temp }}/.emsdk ${{ env.emscripten_version }}
+    - name: Set emscripten environment
+      if: ${{ matrix.profile == 'web' }}
+      run: |
+        source ${{ runner.temp }}/.emsdk/emsdk-${{ env.emscripten_version }}/emsdk/emsdk_env.sh
+        echo "$PATH" >> $GITHUB_PATH
+        echo "EMSDK=$EMSDK" >> $GITHUB_ENV
+        echo "EM_CONFIG=$EM_CONFIG" >> $GITHUB_ENV
+        echo "EM_CACHE=$EM_CACHE" >> $GITHUB_ENV
+        echo "EMSDK_NODE=$EMSDK_NODE" >> $GITHUB_ENV
+    - name: Restore NuGet dependencies
+      run: dotnet restore ${{ matrix.solution_path }}
+    - name: Build
+      run: dotnet build --no-restore ${{ matrix.solution_path }} --configuration ${{ env.build_type }}
+    #- name: Test
+    #  run: dotnet test --no-restore ${{ matrix.solution_path }}

@@ -68,10 +68,10 @@ namespace Floorplan3D
                 this.tileEntity = new Entity(entityName) { Flags = HideFlags.DontSave | HideFlags.DontShow }
                     .AddComponent(new Transform3D())
                     .AddComponent(new MaterialComponent() { Material = this.assetsService.Load<Material>(WaveContent.Materials.TilesMaterial, true) })
-                    .AddComponent(new PlaneMesh() { Width = ICON_SIZE, Height = ICON_SIZE, Normal = Vector3.Forward })
+                    .AddComponent(new PlaneMesh() { Width = ICON_SIZE, Height = ICON_SIZE, PlaneNormal = PlaneMesh.NormalAxis.ZNegative })
                     .AddComponent(new MeshRenderer())
                     .AddComponent(new TileInteractableComponent())
-                    .AddComponent(new LookAtBehavior())
+                    .AddComponent(new LookAtBehavior() { Flip = true })
                     ;
 
                 if (this.IsLight)

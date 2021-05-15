@@ -5,7 +5,7 @@ using WaveEngine.Platform;
 
 namespace Floorplan3D
 {
-    public class MainApplication : Application
+    public partial class MainApplication : Application
     {
         public MainApplication()
         {
@@ -17,7 +17,8 @@ namespace Floorplan3D
             this.Container.RegisterType<GraphicsPresenter>();
             this.Container.RegisterType<AssetsDirectory>();
             this.Container.RegisterType<AssetsService>();
-            this.Container.RegisterType<ForegroundTaskSchedulerService>();
+            this.Container.RegisterType<ForegroundTaskSchedulerService>();            
+            this.Container.RegisterType<WorkActionScheduler>();
         }
 
         public override void Initialize()

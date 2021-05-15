@@ -91,14 +91,14 @@ let WaveEngine = {
     }
 };
 
-let isWebGLSupported = function () {
+let isWebGL2Supported = function () {
     // Some browsers (e.g. Safari on macOS) pass this test, although its implementation it's not fully functional
     var elem = document.createElement('canvas');
-    return !!(elem.getContext && elem.getContext('webgl'));
+    return !!(elem.getContext && elem.getContext('webgl2'));
 }
 
 // Will do the heavy lifting only on supported browsers
-if (isWebGLSupported()) {
+if (isWebGL2Supported()) {
     // Add script references
     var contentTag = document.createElement('script');
     contentTag.src = "waveengine/content.js";
@@ -113,6 +113,6 @@ if (isWebGLSupported()) {
     document.head.appendChild(contentTag);
     document.head.appendChild(dotnetTag);
 } else {
-    console.log("WebGL is NOT supported on this browser");
+    console.log("WebGL2 is NOT supported on this browser");
     $(document).ready(App.warnUnsupportedBrowser);
 }

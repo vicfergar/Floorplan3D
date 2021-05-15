@@ -1,4 +1,3 @@
-using WaveEngine.Components.Graphics3D;
 using WaveEngine.Framework;
 using WaveEngine.Framework.Graphics;
 using WaveEngine.Framework.Graphics.Batchers;
@@ -9,13 +8,13 @@ namespace Floorplan3D
 {
     public class MainScene : Scene
     {
-        protected override void CreateScene()
+		public override void RegisterManagers()
         {
-            this.AvoidBrowserFreeze();
-
+        	base.RegisterManagers();
+        	this.Managers.AddManager(new WaveEngine.Bullet.BulletPhysicManager3D());        	
         }
 
-        private void AvoidBrowserFreeze()
+        protected override void CreateScene()
         {
             var camera = this.Managers.EntityManager.FindFirstComponentOfType<Camera3D>();
             camera.AutoExposureEnabled = false;

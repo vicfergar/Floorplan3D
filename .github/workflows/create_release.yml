@@ -1,0 +1,65 @@
+name: Create Release
+
+on:
+  push:
+    # Sequence of patterns matched against refs/tags
+    tags:
+      - 'v*' # Push events to matching v*, i.e. v1.0, v20.15.10
+
+env:
+  build_type: Release
+  emscripten_version: 1.39.18
+  solution_path: src/Floorplan3D.Web.sln
+
+jobs:
+  build:
+    name: Create Release
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2      
+    - name: Setup .NET Core 3.1
+      uses: actions/setup-dotnet@v1
+      with:
+        dotnet-version: 3.1.x
+    - name: Setup .NET 5.0
+      uses: actions/setup-dotnet@v1
+      with:
+        dotnet-version: 5.0.x
+    - name: Install dependencies (ninja, mono, ...)
+      run: ./build/deps-setup.sh
+    - name: Install emscripten
+      run: ./build/emscripten-setup.sh ${{ runner.temp }}/.emsdk ${{ env.emscripten_version }}
+    - name: Set emscripten environment
+      run: |
+        source ${{ runner.temp }}/.emsdk/emsdk-${{ env.emscripten_version }}/emsdk/emsdk_env.sh
+        echo "$PATH" >> $GITHUB_PATH
+        echo "EMSDK=$EMSDK" >> $GITHUB_ENV
+        echo "EM_CONFIG=$EM_CONFIG" >> $GITHUB_ENV
+        echo "EM_CACHE=$EM_CACHE" >> $GITHUB_ENV
+        echo "EMSDK_NODE=$EMSDK_NODE" >> $GITHUB_ENV
+    - name: Restore NuGet dependencies
+      run: dotnet restore ${{ env.solution_path }}
+    - name: Build
+      run: dotnet build --no-restore ${{ env.solution_path }} --configuration ${{ env.build_type }}   
+    - name: Create artifact
+      run: (cd src/Floorplan3D.Web.AspNetCore/wwwroot/ && zip -r - .) > wwwroot.zip
+    - name: Create Release
+      id: create_release
+      uses: actions/create-release@v1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        tag_name: ${{ github.ref }}
+        release_name: Release ${{ github.ref }}
+        draft: false
+        prerelease: ${{ contains(github.ref, '-') }}
+    - name: Upload Release Asset
+      id: upload-release-asset 
+      uses: actions/upload-release-asset@v1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        upload_url: ${{ steps.create_release.outputs.upload_url }} # This pulls from the CREATE RELEASE step above, referencing it's ID to get its outputs object, which include a `upload_url`. See this blog post for more info: https://jasonet.co/posts/new-features-of-github-actions/#passing-data-to-future-steps 
+        asset_path: ./wwwroot.zip
+        asset_name: wwwroot.zip
+        asset_content_type: application/zip
