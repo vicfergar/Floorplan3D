@@ -34,23 +34,18 @@
 		uint ViewId         : SV_RenderTargetArrayIndex;
 #endif
 	};
-
+	
 	PS_IN VS(VS_IN input)
 	{
-		Vertex vertices[3] =
-		{
-			{ -1.0f, -1.0f, 0.0f, 1.0f }, { 0.0f,  1.0f },
-			{ -1.0f,  3.0f, 0.0f, 1.0f }, { 0.0f, -1.0f },
-			{  3.0f, -1.0f, 0.0f, 1.0f }, { 2.0f,  1.0f }
-		};
-
-
 		PS_IN output = (PS_IN)0;
-
-		Vertex vertex = vertices[input.id % 3];
 		
-		output.pos = vertex.pos;
-		output.tex = vertex.tex;
+		input.id %= 3;
+		
+		float modId = (int)input.id % 2;
+		float divId = (int)input.id / 2;
+		
+		output.pos = float4(divId * 4 - 1, modId * 4 - 1, 0, 1);
+		output.tex = float2(divId * 2, modId * -2 + 1);
 		
 #if MULTIVIEW
 		output.ViewId = input.InstId;

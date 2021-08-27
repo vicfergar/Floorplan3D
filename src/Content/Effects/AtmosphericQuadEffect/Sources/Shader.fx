@@ -148,25 +148,25 @@
     	float2 tex : TEXCOORD;
     };
 
-    #if FLIPPROJECTION
-    static const PS_IN vertices[3] =
-    {
-    	{ -1.0f, -1.0f, 0.0f, 1.0f }, { 0.0f,  0.0f },
-    	{  3.0f, -1.0f, 0.0f, 1.0f }, { 2.0f,  0.0f },
-    	{ -1.0f,  3.0f, 0.0f, 1.0f }, { 0.0f, 2.0f }	
-    };
-    #else
-    static const PS_IN vertices[3] =
-    {
-    	{ -1.0f, -1.0f, 0.0f, 1.0f }, { 0.0f,  1.0f },
-    	{ -1.0f,  3.0f, 0.0f, 1.0f }, { 0.0f, -1.0f },
-    	{  3.0f, -1.0f, 0.0f, 1.0f }, { 2.0f,  1.0f }
-    };
-    #endif
+    
 
     PS_IN VS(VS_IN input)
     {
-    	return vertices[input.id % 3];
+		PS_IN output = (PS_IN)0;
+		
+		input.id %= 3;
+		float modId = (int)input.id % 2;
+		float divId = (int)input.id / 2;
+
+	#if FLIPPROJECTION
+	 	output.pos = float4((modId * 4) - 1, (divId * 4) - 1, 0, 1);
+		output.tex = float2(modId * 2, divId * 2);
+	#else
+		output.pos = float4((divId * 4) - 1, (modId * 4) - 1, 0, 1);
+		output.tex = float2(divId * 2, (modId * -2) + 1);
+	#endif
+	
+    	return output;
     }
 
     float4 PS(PS_IN input) : SV_Target
