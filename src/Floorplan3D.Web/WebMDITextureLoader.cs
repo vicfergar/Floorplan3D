@@ -2,7 +2,6 @@
 using System.Diagnostics;
 using System.Threading;
 using System.Threading.Tasks;
-using System.Web;
 using Floorplan3D.Features.IconTiles;
 using WaveEngine.Bindings.OpenGL;
 using WaveEngine.Common.Graphics;
@@ -42,8 +41,9 @@ namespace Floorplan3D.Web
 
         protected override async Task<Texture> CreateTextureAsync(string svgContent, Func<DataBox[], Texture> textureFactory)
         {
-            var encodedContent = HttpUtility.UrlPathEncode(svgContent);
+            var encodedContent = Uri.EscapeDataString(svgContent);
             await this.imageLoadSemaphore.WaitAsync();
+
             try
             {
                 this.textureFactory = textureFactory;
@@ -63,10 +63,11 @@ namespace Floorplan3D.Web
         {
             var texture = this.textureFactory(null);
             GL.glBindTexture(TextureTarget.Texture2d, (uint)texture.NativePointer);
-            this.gl.Invoke("texImage2D",
+            this.gl.Invoke("texSubImage2D",
                     (uint)TextureTarget.Texture2d,
-                    (int)0,
-                    (uint)WaveEngine.Bindings.OpenGL.PixelFormat.Rgba,
+                    0,
+                    0,
+                    0,
                     (uint)WaveEngine.Bindings.OpenGL.PixelFormat.Rgba,
                     (uint)ColorPointerType.UnsignedByte,
                     this.imgElement);
@@ -77,7 +78,7 @@ namespace Floorplan3D.Web
         private void OnImageError(JSObject errorEvent)
         {
             var errorMessage = errorEvent.GetObjectProperty("message");
-            this.activeImageLoadTCS.SetException(new Exception($"An error ocurred while loading the image: {errorMessage}"));
+            this.activeImageLoadTCS.SetException(new Exception($"An error occurred while loading the image: {errorMessage}"));
         }
     }
 }
