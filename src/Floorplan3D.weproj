@@ -1,15 +1,19 @@
+Packages:
+  - Id: WaveEngine.Core
+    LocalPath: null
+    Version: 3.3.0.8524-preview
 Profiles:
-  - AdditionalEffectTechniqueCombinations: SHADOW_SUPPORTED
+  - AdditionalEffectTechniqueCombinations: SHADOW_SUPPORTED-SHADOWFILTER7, GAMMA_COLORSPACE-SHADOW_SUPPORTED-SHADOWFILTER7
     AlphaCompressionFormat: BC3_UNorm
-    CompileEffects: false
+    CompileEffects: true
     GraphicsBackend: DirectX11
     LauncherType: Default
     Name: Windows
     NonAlphaCompressionFormat: BC3_UNorm
     Platform: Windows
-  - AdditionalEffectTechniqueCombinations: null
+  - AdditionalEffectTechniqueCombinations: SHADOW_SUPPORTED-SHADOWFILTER7, GAMMA_COLORSPACE-SHADOW_SUPPORTED-SHADOWFILTER7
     AlphaCompressionFormat: R8G8B8A8_UNorm
-    CompileEffects: false
+    CompileEffects: true
     GraphicsBackend: OpenGL
     LauncherType: OpenGL
     Name: Windows.OpenGL

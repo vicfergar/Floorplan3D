@@ -8,12 +8,12 @@
   
   <ItemGroup>
     <PackageReference Include="Svg" Version="3.1.1" />
-    <PackageReference Include="WaveEngine.DirectX11" Version="3.2.0.7787-preview" />
-    <PackageReference Include="WaveEngine.HLSLEverywhere" Version="3.2.0.7787-preview" />
-    <PackageReference Include="WaveEngine.XAudio2" Version="3.2.0.7787-preview" />
-    <PackageReference Include="WaveEngine.Forms" Version="3.2.0.7787-preview" />
-    <PackageReference Include="WaveEngine.Targets" Version="3.2.0.7787-preview" />
-    <PackageReference Include="WaveEngine.Targets.Windows" Version="3.2.0.7787-preview" />
+    <PackageReference Include="WaveEngine.DirectX11" Version="3.3.0.8524-preview" />
+    <PackageReference Include="WaveEngine.HLSLEverywhere" Version="3.3.0.8524-preview" />
+    <PackageReference Include="WaveEngine.XAudio2" Version="3.3.0.8524-preview" />
+    <PackageReference Include="WaveEngine.Forms" Version="3.3.0.8524-preview" />
+    <PackageReference Include="WaveEngine.Targets" Version="3.3.0.8524-preview" />
+    <PackageReference Include="WaveEngine.Targets.Windows" Version="3.3.0.8524-preview" />
   </ItemGroup>
   
   <ItemGroup>
@@ -23,4 +23,5 @@
   <ItemGroup Condition="$(DefineConstants.Contains('WAVEENGINE_EDITOR'))">
     <ProjectReference Include="..\Floorplan3D.Editor\Floorplan3D.Editor.csproj" />
   </ItemGroup>
+  
 </Project>

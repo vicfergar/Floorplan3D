@@ -26,7 +26,8 @@ Items:
         Id: 94fb114a-c4d8-4674-bd4d-409893d8ab53
         IntensityMultiplier: 1.0
         IsEnabled: true
-        ReflectionProbe: cb4c9738-03a0-494f-a839-20a22581fb59
+        ReflectionProbe: 6b0424f1-c53c-487b-97b2-17751631b8f9
+        Strategy: Automatically
       - !WaveEngine.Components.Graphics3D.ShadowMapComponent,WaveEngine.Framework
         Id: 4dc7a18d-bde5-4e59-8c0c-67b68a42207e
         AutoDepthBounds: false
@@ -118,7 +119,7 @@ Items:
         Id: bb44cd62-4d92-418a-8a42-bbc2ed2b6f07
         AsignedTo: Default
         IsEnabled: true
-        Material: d86356a4-a34e-40a6-a4df-32fce9f86bf0
+        Material: c31f3455-43c4-42f0-b802-8f23d0d74179
       - !WaveEngine.Components.Graphics3D.SphereMesh,WaveEngine.Components
         Id: 3ef37285-f016-4173-bbf0-278ec1624224
         Diameter: 1.0
@@ -244,13 +245,13 @@ Items:
                   MaxDepth: 1.0
                   MinDepth: 0.0
                 DisplayTag: null
-                DisplayTagDirty: true
                 Exposure: 1.0
                 FarPlane: 1000.0
                 FieldOfView: 0.785398185
                 FieldOfViewAxis: Vertical
                 FocalDistance: 1.0
                 FocalLength: 50.0
+                FrameBuffer: null
                 FrustumCullingEnabled: true
                 HDREnabled: true
                 IsEnabled: true

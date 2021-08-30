@@ -255,7 +255,7 @@ namespace Floorplan3D
             }
 
             Vector2 delta = -this.CalcDelta(this.currentPointerPosition, this.lastPointerPosition);
-            delta *= this.cameraTargetLength * OrbitFactor;
+            delta *= OrbitFactor;
 
             this.theta += delta.X;
             this.phi += delta.Y;
