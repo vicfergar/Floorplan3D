@@ -1,12 +1,12 @@
 ﻿using Floorplan3D.Features.IconTiles;
-using WaveEngine.Common.Graphics;
-using WaveEngine.Components.Graphics3D;
-using WaveEngine.Components.Toolkit;
-using WaveEngine.Framework;
-using WaveEngine.Framework.Graphics;
-using WaveEngine.Framework.Graphics.Materials;
-using WaveEngine.Framework.Services;
-using WaveEngine.Mathematics;
+using Evergine.Common.Graphics;
+using Evergine.Components.Graphics3D;
+using Evergine.Components.Toolkit;
+using Evergine.Framework;
+using Evergine.Framework.Graphics;
+using Evergine.Framework.Graphics.Materials;
+using Evergine.Framework.Services;
+using Evergine.Mathematics;
 
 namespace Floorplan3D
 {
@@ -67,7 +67,7 @@ namespace Floorplan3D
             {
                 this.tileEntity = new Entity(entityName) { Flags = HideFlags.DontSave | HideFlags.DontShow }
                     .AddComponent(new Transform3D())
-                    .AddComponent(new MaterialComponent() { Material = this.assetsService.Load<Material>(WaveContent.Materials.TilesMaterial, true) })
+                    .AddComponent(new MaterialComponent() { Material = this.assetsService.Load<Material>(EvergineContent.Materials.TilesMaterial, true) })
                     .AddComponent(new PlaneMesh() { Width = ICON_SIZE, Height = ICON_SIZE, PlaneNormal = PlaneMesh.NormalAxis.ZNegative })
                     .AddComponent(new MeshRenderer())
                     .AddComponent(new TileInteractableComponent())

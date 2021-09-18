@@ -1,7 +1,7 @@
-using WaveEngine.Framework;
-using WaveEngine.Framework.Services;
-using WaveEngine.Framework.Threading;
-using WaveEngine.Platform;
+using Evergine.Framework;
+using Evergine.Framework.Services;
+using Evergine.Framework.Threading;
+using Evergine.Platform;
 
 namespace Floorplan3D
 {
@@ -30,7 +30,7 @@ namespace Floorplan3D
             var assetsService = this.Container.Resolve<AssetsService>();
 
             // Navigate to scene
-            var scene = assetsService.Load<MainScene>(WaveContent.Scenes.MainScene_wescene);
+            var scene = assetsService.Load<MainScene>(EvergineContent.Scenes.MainScene_wescene);
             ScreenContext screenContext = new ScreenContext(scene);
             screenContextManager.To(screenContext);
         }

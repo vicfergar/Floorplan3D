@@ -1,6 +1,6 @@
 ﻿using System.Diagnostics;
-using WaveEngine.Framework;
-using WaveEngine.Mathematics;
+using Evergine.Framework;
+using Evergine.Mathematics;
 
 namespace Floorplan3D
 {

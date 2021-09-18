@@ -1,12 +1,11 @@
-﻿using System;
+﻿using Evergine.Common.Graphics;
+using Evergine.Web;
+using Floorplan3D.Features.IconTiles;
+using System;
 using System.Diagnostics;
 using System.Threading;
 using System.Threading.Tasks;
-using Floorplan3D.Features.IconTiles;
 using WaveEngine.Bindings.OpenGL;
-using WaveEngine.Common.Graphics;
-using WebAssembly;
-using WebAssembly.Host;
 
 namespace Floorplan3D.Web
 {
@@ -28,15 +27,16 @@ namespace Floorplan3D.Web
 
         public WebMDITextureLoader(JSObject canvas, GraphicsBackend webGLBackend)
         {
-            this.gl = (JSObject)canvas.Invoke("getContext", webGLBackend == GraphicsBackend.WebGL1 ? "webgl" : "webgl2");
+            this.gl = canvas.Invoke<JSObject>("getContext", true, webGLBackend == GraphicsBackend.WebGL1 ? "webgl" : "webgl2");
             Debug.WriteLine($"{webGLBackend} glContext: {gl}");
             this.onImageLoadedAction = new Action<JSObject>(this.OnImageLoaded);
             this.onImageErrorAction = new Action<JSObject>(this.OnImageError);
 
-            this.imgElement = new HostObject("Image", TEXTURE_SIZE, TEXTURE_SIZE);
+            var wasm = Evergine.Web.WebAssembly.GetInstance();
+            this.imgElement = wasm.Invoke<JSObject>("eval", true, $"(new Image({TEXTURE_SIZE}, {TEXTURE_SIZE}))");
             this.imgElement.SetObjectProperty("crossOrigin", string.Empty);
-            this.imgElement.Invoke("addEventListener", "load", this.onImageLoadedAction);
-            this.imgElement.Invoke("addEventListener", "error", this.onImageErrorAction);
+            this.imgElement.AddEventListener("load", this.onImageLoadedAction);
+            this.imgElement.AddEventListener("error", this.onImageErrorAction);
         }
 
         protected override async Task<Texture> CreateTextureAsync(string svgContent, Func<DataBox[], Texture> textureFactory)
@@ -64,20 +64,21 @@ namespace Floorplan3D.Web
             var texture = this.textureFactory(null);
             GL.glBindTexture(TextureTarget.Texture2d, (uint)texture.NativePointer);
             this.gl.Invoke("texSubImage2D",
+                    true,
                     (uint)TextureTarget.Texture2d,
                     0,
                     0,
                     0,
                     (uint)WaveEngine.Bindings.OpenGL.PixelFormat.Rgba,
                     (uint)ColorPointerType.UnsignedByte,
-                    this.imgElement);
+                    this.imgElement.Reference);
 
             this.activeImageLoadTCS.SetResult(texture);
         }
 
         private void OnImageError(JSObject errorEvent)
         {
-            var errorMessage = errorEvent.GetObjectProperty("message");
+            var errorMessage = errorEvent.GetObjectProperty<string>("message");
             this.activeImageLoadTCS.SetException(new Exception($"An error occurred while loading the image: {errorMessage}"));
         }
     }
