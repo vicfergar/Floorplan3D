@@ -8,8 +8,8 @@ on:
 
 env:
   build_type: Release
-  emscripten_version: 1.39.18
   solution_path: src/Floorplan3D.Web.sln
+  wwwroot_pah: src/Floorplan3D.Web/wwwroot
 
 jobs:
   build:
@@ -22,14 +22,13 @@ jobs:
       with:
         dotnet-version: 6.0.x
     - name: Install Wasm tools
-      if: ${{ matrix.profile == 'web' }}
       run: dotnet workload install wasm-tools --skip-manifest-update
     - name: Restore NuGet dependencies
       run: dotnet restore ${{ env.solution_path }}
     - name: Build
       run: dotnet build --no-restore ${{ env.solution_path }} --configuration ${{ env.build_type }}   
     - name: Create artifact
-      run: (cd src/Floorplan3D.Web.AspNetCore/wwwroot/ && zip -r - .) > wwwroot.zip
+      run: (cd ${{ env.wwwroot_pah }} && zip -r - .) > wwwroot.zip
     - name: Create Release
       id: create_release
       uses: actions/create-release@v1
