@@ -1,8 +1,8 @@
-!WaveEngine.Assets.Exporters.DirectoryMetaFile,WaveEngine.Assets
+!Evergine.Assets.Exporters.DirectoryMetaFile,Evergine.Assets
 DefaultProfile:
   ExcludeAsset: false
   Name: null
   OutputName: null
   Platform: Undefined
-Id: cef06b0f-c427-4d12-b09f-954c214fb852
+Id: 9e073328-98b1-4aac-b67b-c285242d5a83
 Profiles: {}

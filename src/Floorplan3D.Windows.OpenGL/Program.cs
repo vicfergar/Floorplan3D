@@ -1,8 +1,8 @@
 using System.Diagnostics;
-using WaveEngine.Common.Graphics;
-using WaveEngine.Framework;
-using WaveEngine.Framework.Graphics;
-using WaveEngine.Framework.Services;
+using Evergine.Common.Graphics;
+using Evergine.Framework;
+using Evergine.Framework.Graphics;
+using Evergine.Framework.Services;
 
 namespace Floorplan3D.Windows.OpenGL
 {
@@ -16,14 +16,16 @@ namespace Floorplan3D.Windows.OpenGL
             // Create Services
             uint width = 1280;
             uint height = 720;
-            WindowsSystem windowsSystem = new WaveEngine.Forms.FormsWindowsSystem();
+            WindowsSystem windowsSystem = new Evergine.Forms.FormsWindowsSystem();
             application.Container.RegisterInstance(windowsSystem);
             var window = windowsSystem.CreateWindow("Floorplan3D - OpenGL", width, height);
+
+            application.Container.RegisterInstance(new DesktopMDITextureLoader());
 
             ConfigureGraphicsContext(application, window);
 			
 			// Creates XAudio device
-            var xaudio = new WaveEngine.XAudio2.XAudioDevice();
+            var xaudio = new Evergine.XAudio2.XAudioDevice();
             application.Container.RegisterInstance(xaudio);
 
             Stopwatch clockTimer = Stopwatch.StartNew();
@@ -44,7 +46,7 @@ namespace Floorplan3D.Windows.OpenGL
 
         private static void ConfigureGraphicsContext(Application application, Window window)
         {
-            GraphicsContext graphicsContext = new WaveEngine.OpenGL.GLGraphicsContext();
+            GraphicsContext graphicsContext = new Evergine.OpenGL.GLGraphicsContext();
             graphicsContext.CreateDevice();
             SwapChainDescription swapChainDescription = new SwapChainDescription()
             {

@@ -29,30 +29,14 @@ jobs:
             solution_path: src/Floorplan3D.Web.sln
 
     steps:
-    - uses: actions/checkout@v2      
-    - name: Setup .NET Core 3.1
+    - uses: actions/checkout@v2
+    - name: Setup .NET 6.0
       uses: actions/setup-dotnet@v1
       with:
-        dotnet-version: 3.1.x
-    - name: Setup .NET 5.0
-      uses: actions/setup-dotnet@v1
-      with:
-        dotnet-version: 5.0.x
-    - name: Install dependencies (ninja, mono, ...)
+        dotnet-version: 6.0.x
+    - name: Install Wasm tools
       if: ${{ matrix.profile == 'web' }}
-      run: ./build/deps-setup.sh
-    - name: Install emscripten
-      if: ${{ matrix.profile == 'web' }}
-      run: ./build/emscripten-setup.sh ${{ runner.temp }}/.emsdk ${{ env.emscripten_version }}
-    - name: Set emscripten environment
-      if: ${{ matrix.profile == 'web' }}
-      run: |
-        source ${{ runner.temp }}/.emsdk/emsdk-${{ env.emscripten_version }}/emsdk/emsdk_env.sh
-        echo "$PATH" >> $GITHUB_PATH
-        echo "EMSDK=$EMSDK" >> $GITHUB_ENV
-        echo "EM_CONFIG=$EM_CONFIG" >> $GITHUB_ENV
-        echo "EM_CACHE=$EM_CACHE" >> $GITHUB_ENV
-        echo "EMSDK_NODE=$EMSDK_NODE" >> $GITHUB_ENV
+      run: dotnet workload install wasm-tools --skip-manifest-update
     - name: Restore NuGet dependencies
       run: dotnet restore ${{ matrix.solution_path }}
     - name: Build

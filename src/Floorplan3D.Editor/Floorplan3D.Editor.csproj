@@ -1,14 +1,14 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>netstandard2.1</TargetFramework>
+    <TargetFramework>netstandard2.0</TargetFramework>
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="WaveEngine.Common" Version="3.2.0.7787-preview" />
-    <PackageReference Include="WaveEngine.Components" Version="3.2.0.7787-preview" />
-    <PackageReference Include="WaveEngine.Framework" Version="3.2.0.7787-preview" />
-    <PackageReference Include="WaveEngine.Editor.Extension" Version="3.2.0.7787-preview" />
+    <PackageReference Include="Evergine.Common" Version="2021.11.17.2-preview" />
+    <PackageReference Include="Evergine.Components" Version="2021.11.17.2-preview" />
+    <PackageReference Include="Evergine.Framework" Version="2021.11.17.2-preview" />
+    <PackageReference Include="Evergine.Editor.Extension" Version="2021.11.17.2-preview" />
   </ItemGroup>
 
   <ItemGroup>
