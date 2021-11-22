@@ -8,8 +8,8 @@ on:
 
 env:
   build_type: Release
-  solution_path: src/Floorplan3D.Web.sln
-  wwwroot_pah: src/Floorplan3D.Web/wwwroot
+  project_path: src/Floorplan3D.Web/Floorplan3D.Web.csproj
+  wwwroot_pah: src/Floorplan3D.Web/bin/Release/net6.0/publish/wwwroot
 
 jobs:
   build:
@@ -24,9 +24,9 @@ jobs:
     - name: Install Wasm tools
       run: dotnet workload install wasm-tools --skip-manifest-update
     - name: Restore NuGet dependencies
-      run: dotnet restore ${{ env.solution_path }}
+      run: dotnet restore ${{ env.project_path }}
     - name: Build
-      run: dotnet build --no-restore ${{ env.solution_path }} --configuration ${{ env.build_type }}   
+      run: dotnet publish --no-restore ${{ env.project_path }} --configuration ${{ env.build_type }}   
     - name: Create artifact
       run: (cd ${{ env.wwwroot_pah }} && zip -r - .) > wwwroot.zip
     - name: Create Release
