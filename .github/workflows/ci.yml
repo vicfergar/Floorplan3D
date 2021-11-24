@@ -15,16 +15,14 @@ env:
 jobs:
   build:
     name: ${{ matrix.profile }}
-    runs-on: ${{ matrix.os }}
+    runs-on: windows-latest
     strategy:
       matrix:
         profile: [windows-desktop, web]
         include:
           - profile: windows-desktop
-            os: windows-latest
             solution_path: src/Floorplan3D.Windows.OpenGL.sln
           - profile: web
-            os: ubuntu-latest 
             solution_path: src/Floorplan3D.Web.sln
 
     steps:

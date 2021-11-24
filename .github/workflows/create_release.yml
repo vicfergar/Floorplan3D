@@ -9,12 +9,12 @@ on:
 env:
   build_type: Release
   project_path: src/Floorplan3D.Web/Floorplan3D.Web.csproj
-  wwwroot_pah: src/Floorplan3D.Web/bin/Release/net6.0/publish/wwwroot
+  wwwroot_pah: src/Floorplan3D.Web/bin/Release/net6.0/publish/wwwroot/*
 
 jobs:
   build:
     name: Create Release
-    runs-on: ubuntu-latest
+    runs-on: windows-latest
     steps:
     - uses: actions/checkout@v2  
     - name: Setup .NET 6.0
@@ -28,7 +28,7 @@ jobs:
     - name: Build
       run: dotnet publish --no-restore ${{ env.project_path }} --configuration ${{ env.build_type }}   
     - name: Create artifact
-      run: (cd ${{ env.wwwroot_pah }} && zip -r - .) > wwwroot.zip
+      run: Compress-Archive -Path ${{ env.wwwroot_pah }} -DestinationPath wwwroot.zip
     - name: Create Release
       id: create_release
       uses: actions/create-release@v1
