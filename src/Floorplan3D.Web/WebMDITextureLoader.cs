@@ -1,11 +1,11 @@
-﻿using Evergine.Common.Graphics;
+﻿using Evergine.Bindings.OpenGL;
+using Evergine.Common.Graphics;
 using Evergine.Web;
 using Floorplan3D.Features.IconTiles;
 using System;
 using System.Diagnostics;
 using System.Threading;
 using System.Threading.Tasks;
-using WaveEngine.Bindings.OpenGL;
 
 namespace Floorplan3D.Web
 {
@@ -69,7 +69,7 @@ namespace Floorplan3D.Web
                     0,
                     0,
                     0,
-                    (uint)WaveEngine.Bindings.OpenGL.PixelFormat.Rgba,
+                    (uint)Evergine.Bindings.OpenGL.PixelFormat.Rgba,
                     (uint)ColorPointerType.UnsignedByte,
                     this.imgElement.Reference);
 

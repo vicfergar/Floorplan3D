@@ -27,14 +27,13 @@ Items:
         IntensityMultiplier: 1.0
         IsEnabled: true
         ReflectionProbe: cb4c9738-03a0-494f-a839-20a22581fb59
-        Strategy: OnDemand
       - !Evergine.Components.Graphics3D.ShadowMapComponent,Evergine.Framework
         Id: 4dc7a18d-bde5-4e59-8c0c-67b68a42207e
         AutoDepthBounds: false
         DirectionalResolution: Size_1024
         IsEnabled: true
         PunctualResolution: Size_512
-        ShadowFilter: PCF7x7
+        ShadowFilter: PCF3x3
         SpotResolution: Size_512
     Children: []
     Id: 3aea6832-ccae-4bc6-9bb7-64229c7c2de0
@@ -68,26 +67,16 @@ Items:
           G: 240
           R: 249
         ColorByTemperature: true
-        DebugMode: false
-        GammaDistribution: 0.800000012
-        Illuminance: 3.0
+        Illuminance: 10.0
         Intensity: 3.0
         IsEnabled: true
-        IsShadowEnabled: true
         LinearColor:
           A: 0.0
           B: 0.77908951
           G: 0.874792635
           R: 0.9453125
-        ShadowBias: 0.00499999989
-        ShadowDistance: 80.0
-        ShadowOpacity: 1.0
-        SplitDistance:
-          - 0.0
-          - 0.0
-          - 0.0
-          - 0.0
         Temperature: 6500.0
+        IsShadowEnabled: true
       - !Evergine.Framework.Graphics.SunComponent,Evergine.Framework
         Id: 6f2b70f3-a505-49a6-9454-130b04d48cd3
         IsEnabled: true
@@ -119,7 +108,7 @@ Items:
         Id: bb44cd62-4d92-418a-8a42-bbc2ed2b6f07
         AsignedTo: Default
         IsEnabled: true
-        Material: 6f1c605b-9323-482a-ac10-835c880e1064
+        Material: d418b16b-5f56-4dcd-acfb-d024c3ea1e71
       - !Evergine.Components.Graphics3D.SphereMesh,Evergine.Components
         Id: 3ef37285-f016-4173-bbf0-278ec1624224
         Diameter: 1.0
@@ -133,7 +122,6 @@ Items:
         IsCullingEnabled: false
         IsEnabled: true
         OrderBias: 0
-        RenderFlags: CastShadows
       - !Evergine.Components.Environment.AtmosphereController,Evergine.Components
         Id: 18617d72-081f-4fb6-bbac-b3dfbf177924
         AtmosphereRadiusInKm: 6471.0

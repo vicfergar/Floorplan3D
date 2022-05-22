@@ -402,4 +402,4 @@ FodyWeavers.xsd
 EvergineContent.cs
 !**/Content/**/*.obj
 **/wwwroot/lib/
-**/wwwroot/evergine/
+**/wwwroot/evergine.js

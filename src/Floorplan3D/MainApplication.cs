@@ -1,6 +1,5 @@
 using Evergine.Framework;
 using Evergine.Framework.Services;
-using Evergine.Framework.Threading;
 using Evergine.Platform;
 
 namespace Floorplan3D
@@ -9,6 +8,7 @@ namespace Floorplan3D
     {
         public MainApplication()
         {
+            this.Container.RegisterType<Settings>();
             this.Container.RegisterType<Clock>();
             this.Container.RegisterType<TimerFactory>();
             this.Container.RegisterType<Random>();
@@ -17,7 +17,7 @@ namespace Floorplan3D
             this.Container.RegisterType<GraphicsPresenter>();
             this.Container.RegisterType<AssetsDirectory>();
             this.Container.RegisterType<AssetsService>();
-            this.Container.RegisterType<ForegroundTaskSchedulerService>();            
+            this.Container.RegisterType<ForegroundTaskSchedulerService>();
             this.Container.RegisterType<WorkActionScheduler>();
         }
 

@@ -5,7 +5,7 @@
 Floorplan3D is the front-end part of a Home Assistant Add-on to visualiaze a 3D floorplan of you home and interact connected devices using Home Assistant WebSocket API.
 
 ----
-Powered by **[Evergine 3.3 preview](http://www.evergine.net)**
+Powered by **[Evergine](http://www.evergine.com)**
 
 LET'S CONNECT!
 

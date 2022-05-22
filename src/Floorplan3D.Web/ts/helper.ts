@@ -184,3 +184,8 @@ function fadeOut(elem, ms, cbk) {
 function _evergine_ready() {
     App.hideSplash();
 }
+
+function _evergine_EGL() {
+    window.EGL.contextAttributes.antialias = true;
+    window.EGL.contextAttributes.preserveDrawingBuffer = true;
+}

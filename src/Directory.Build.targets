@@ -1,0 +1,5 @@
+<Project>
+	<ItemGroup Condition="'$(UseWindowsForms)' == 'true'">
+		<PackageReference Include="Svg" Version="3.4.2" />
+	</ItemGroup>
+</Project>

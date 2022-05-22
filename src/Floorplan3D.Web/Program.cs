@@ -15,12 +15,12 @@ namespace Floorplan3D.Web
 
         private static WindowsSystem windowsSystem;
         private static MainApplication application;
-        private static Evergine.Web.WebAssembly wasm;
+        private static global::Evergine.Web.WebAssembly wasm;
 
         public static void Main()
         {
             // Hack for AOT dll dependencies
-            var cp = new Evergine.Components.Graphics3D.Spinner();
+            var cp = new global::Evergine.Components.Graphics3D.Spinner();
 
             // Create app
             application = new MainApplication();
@@ -30,7 +30,7 @@ namespace Floorplan3D.Web
             application.Container.RegisterInstance(windowsSystem);
 
             // Wasm instance need to be initialized here for debugger
-            wasm = Evergine.Web.WebAssembly.GetInstance();
+            wasm = global::Evergine.Web.WebAssembly.GetInstance();
         }
 
         public static void Run(string canvasId)
@@ -76,8 +76,7 @@ namespace Floorplan3D.Web
         private static void ConfigureGraphicsContext(Application application, Surface surface, GraphicsBackend graphicsBackend)
         {
             // Enabled web canvas antialias (MSAA)
-            //Runtime.InvokeJS("EGL.contextAttributes.antialias = true;");
-            //Runtime.InvokeJS("EGL.contextAttributes.preserveDrawingBuffer = true;");
+            wasm.Invoke("window._evergine_EGL");
 
             Trace.WriteLine($"GraphicsBackend: {graphicsBackend}");
             var graphicsContext = new GLGraphicsContext(graphicsBackend);

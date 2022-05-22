@@ -16,6 +16,7 @@ class Program {
         this.invoke("UpdateCanvasSize", canvasId);
 
     }
+    
     invoke(methodName: string, ...args: any[]) {
         window.BINDING.call_static_method(
             `[${this.assemblyName}] ${this.className}:${methodName}`,
