@@ -82,13 +82,14 @@ Items:
         AsignedTo: Default
         IsEnabled: true
         Material: b37540b0-05b2-4d03-a266-0931448b8990
+        UseCopy: false
       - !Evergine.Components.Graphics3D.SphereMesh,Evergine.Components
         Id: 3ef37285-f016-4173-bbf0-278ec1624224
         Diameter: 1.0
         IsEnabled: true
         Tessellation: 32
-        UVHorizontalFlip: false
-        UVVerticalFlip: false
+        UMirror: false
+        VMirror: false
       - !Evergine.Components.Graphics3D.MeshRenderer,Evergine.Framework
         Id: 1665742b-454f-4cda-9b9b-df6698342e5d
         DebugBoundingbox: true
