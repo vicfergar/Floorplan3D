@@ -255,47 +255,6 @@ Items:
         Id: e7917634-2206-47f1-b0f5-3de9e4cd5c00
     Id: 07bd941e-6838-460e-83e5-49d463dfe183
   - !Evergine.Framework.Assets.AssetSources.Entities.EntityItemModel,Evergine.Framework
-    Name: teapot
-    Tag: null
-    IsEnabled: true
-    IsStatic: false
-    Components:
-      - !Evergine.Framework.Graphics.Transform3D,Evergine.Framework
-        Id: 72e58377-fdb8-4291-8dd0-8f20f3654582
-        IsEnabled: true
-        LocalOrientation:
-          W: 1.0
-          X: 0.0
-          Y: 0.0
-          Z: 0.0
-        LocalPosition:
-          X: 0.0
-          Y: 0.0
-          Z: 0.0
-        LocalScale:
-          X: 1.0
-          Y: 1.0
-          Z: 1.0
-      - !Evergine.Components.Graphics3D.MaterialComponent,Evergine.Framework
-        Id: ea721e08-9749-4022-9771-af25e4b5a9f0
-        AsignedTo: Default
-        IsEnabled: true
-        Material: 02181b63-5a0e-46d1-9208-d92376ae33fb
-      - !Evergine.Components.Graphics3D.TeapotMesh,Evergine.Components
-        Id: 59fbbcf7-3319-4dc3-ada5-01fddd749ab2
-        IsEnabled: true
-        Size: 1.0
-        Tessellation: 16
-      - !Evergine.Components.Graphics3D.MeshRenderer,Evergine.Framework
-        Id: 0c021f93-f595-4424-8a6e-c9685ce364ee
-        DebugBoundingbox: true
-        IsCullingEnabled: true
-        IsEnabled: true
-        OrderBias: 0
-        RenderFlags: CastShadows
-    Children: []
-    Id: 19a1c044-764d-407e-a3e5-52a5af9ffc28
-  - !Evergine.Framework.Assets.AssetSources.Entities.EntityItemModel,Evergine.Framework
     Name: iconTile
     Tag: null
     IsEnabled: true
