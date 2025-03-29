@@ -1,6 +1,6 @@
+using Evergine.Common.IO;
 using Evergine.Framework;
 using Evergine.Framework.Services;
-using Evergine.Platform;
 
 namespace Floorplan3D
 {
@@ -8,17 +8,17 @@ namespace Floorplan3D
     {
         public MainApplication()
         {
-            this.Container.RegisterType<Settings>();
-            this.Container.RegisterType<Clock>();
-            this.Container.RegisterType<TimerFactory>();
-            this.Container.RegisterType<Random>();
-            this.Container.RegisterType<ErrorHandler>();
-            this.Container.RegisterType<ScreenContextManager>();
-            this.Container.RegisterType<GraphicsPresenter>();
-            this.Container.RegisterType<AssetsDirectory>();
-            this.Container.RegisterType<AssetsService>();
-            this.Container.RegisterType<ForegroundTaskSchedulerService>();
-            this.Container.RegisterType<WorkActionScheduler>();
+            this.Container.Register<Settings>();
+            this.Container.Register<Clock>();
+            this.Container.Register<TimerFactory>();
+            this.Container.Register<Random>();
+            this.Container.Register<ErrorHandler>();
+            this.Container.Register<ScreenContextManager>();
+            this.Container.Register<GraphicsPresenter>();
+            this.Container.Register<AssetsDirectory>();
+            this.Container.Register<AssetsService>();
+            this.Container.Register<ForegroundTaskSchedulerService>();
+            this.Container.Register<WorkActionScheduler>();
         }
 
         public override void Initialize()
@@ -31,8 +31,10 @@ namespace Floorplan3D
 
             // Navigate to scene
             var scene = assetsService.Load<MainScene>(EvergineContent.Scenes.MainScene_wescene);
-            ScreenContext screenContext = new ScreenContext(scene);
+            var screenContext = new ScreenContext(scene);
             screenContextManager.To(screenContext);
         }
     }
 }
+
+

@@ -6,7 +6,6 @@ using Evergine.Framework;
 using Evergine.Framework.Graphics;
 using Evergine.Framework.Graphics.Materials;
 using Evergine.Framework.Services;
-using Evergine.Mathematics;
 
 namespace Floorplan3D
 {

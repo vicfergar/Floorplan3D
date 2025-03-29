@@ -1,5 +1,4 @@
 ﻿using System;
-using Evergine.Components.Graphics3D;
 using Evergine.Framework;
 using Evergine.Framework.Graphics;
 using Evergine.Mathematics;

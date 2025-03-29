@@ -16,11 +16,7 @@
   </head>
 
   <body class="dark">
-    <canvas
-      id="evergine-canvas"
-      oncontextmenu="return false;"
-      tabindex="1"
-    ></canvas>
+    <div id="evergine-canvas-container"></div>
     <div id="splash">
       <div id="splash-content">
         <div class="logo-container">
@@ -38,38 +34,26 @@
       </div>
     </div>
 
-    <!-- We first configure javascript evergine functions on evergine.js-->
+    <!-- First we load web assembly code -->
+    <script src="_framework/blazor.webassembly.js" autostart="false"></script>
+
+    <!-- Then, start loading the assets into the vfs -->
+    <script src="assets.js"></script>
+
+    <!-- Finally, run evergine -->
     <script type="text/javascript">
-      var Module =
-        typeof Module !== "undefined"
-          ? new EvergineModule(Module)
-          : new EvergineModule();
       var app = new App(
-        "evergine-canvas",
         "Floorplan3D.Web",
         "Floorplan3D.Web.Program",
-        Module
+        new EvergineModule()
       );
-    </script>
-
-    <!-- Then we load web assembly code -->
-    <script src="_framework/blazor.webassembly.js" autostart="false"></script>
-    <!-- After it, start loading the assets into the vfs -->
-    <script src="assets.js"></script>
-    <!-- Finally, run evergine when all assets are loaded -->
-    <script type="text/javascript">
-      function waitAndRun() {
-        if (areAllAssetsLoaded()) {
-          console.log("Running...");
-          app.run();
-        } else {
-          setTimeout(waitAndRun, 100);
-        }
-      }
-
       Blazor.start().then(function () {
-        waitAndRun();
+        // It is not mandatory to run Evergine now, but it must run after blazor is started
+        app.startEvergine();
       });
+
+      //// It is possible to delete the Evergine instance by running
+      // app.destroyEvergine();
     </script>
   </body>
 </html>

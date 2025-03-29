@@ -3,7 +3,6 @@ using Evergine.Common.Helpers;
 using Evergine.Framework;
 using Evergine.Framework.Graphics;
 using Evergine.Framework.Services;
-using Evergine.Platform;
 using System;
 using System.Diagnostics;
 
@@ -13,15 +12,15 @@ namespace Floorplan3D.Windows
     {
 
 #if OPENGL
-        static string title = "Floorplan3D - OpenGL";
+        private const string title = "Floorplan3D - OpenGL";
 #else
-        static string title = "Floorplan3D - DX11";
+        private const string title = "Floorplan3D - DX11";
 #endif
 
         static uint width = 1280;
         static uint height = 720;
-        static bool windowed = true;
-        static bool vSync = true;
+        static bool Windowed = true;
+        static bool VSync = true;
 
         static void Main(string[] args)
         {
@@ -31,10 +30,10 @@ namespace Floorplan3D.Windows
                 CmdParser cmd = new CmdParser()
                     .AddOption(new CmdParser.Option("-Width", (string v) => { return uint.TryParse(v, out width); }, "Set width size in pixels."))
                     .AddOption(new CmdParser.Option("-Height", (string v) => { return uint.TryParse(v, out height); }, "Set height size in pixels."))
-                    .AddOption(new CmdParser.Option("-VSync", (string _) => { vSync = true; return true; }, "Activate vertical sync."))
-                    .AddOption(new CmdParser.Option("-NoVSync", (string _) => { vSync = false; return true; }, "Deactivate vertical sync."))
-                    .AddOption(new CmdParser.Option("-Windowed", (string _) => { windowed = true; return true; }, "Set application to run in windowed mode."))
-                    .AddOption(new CmdParser.Option("-FullScreen", (string _) => { windowed = false; return true; }, "Set application to run in full screen mode."));
+                    .AddOption(new CmdParser.Option("-Vsync", (string _) => { VSync = true; return true; }, "Active vertical sync."))
+                    .AddOption(new CmdParser.Option("-NoVsync", (string _) => { VSync = false; return true; }, "Desactive vertical sync."))
+                    .AddOption(new CmdParser.Option("-Windowed", (string _) => { Windowed = true; return true; }, "Set application to run in windowed mode."))
+                    .AddOption(new CmdParser.Option("-FullScreen", (string _) => { Windowed = false; return true; }, "Set application to run in fullscreen mode."));
 
                 var success = cmd.Parse(args);
 
@@ -46,15 +45,15 @@ namespace Floorplan3D.Windows
             }
             else
             {
-                var handle = Win32API.GetConsoleWindow();
-                Win32API.ShowWindow(handle, 0);
+                var handle = Evergine.Forms.Win32Native.GetConsoleWindow();
+                Evergine.Forms.Win32Native.ShowWindow(handle, false);
             }
 
             // Create app
-            MainApplication application = new MainApplication();
+            var application = new MainApplication();
 
             // Create Services
-            WindowsSystem windowsSystem = new Evergine.Forms.FormsWindowsSystem();
+            var windowsSystem = new Evergine.Forms.FormsWindowsSystem();
             application.Container.RegisterInstance(windowsSystem);
             var window = windowsSystem.CreateWindow(title, width, height);
 
@@ -62,7 +61,7 @@ namespace Floorplan3D.Windows
 
             application.Container.RegisterInstance(new DesktopMDITextureLoader());
 
-            // Creates XAudio device
+			// Creates XAudio device
             var xaudio = new global::Evergine.XAudio2.XAudioDevice();
             application.Container.RegisterInstance(xaudio);
 
@@ -80,17 +79,19 @@ namespace Floorplan3D.Windows
                 application.UpdateFrame(gameTime);
                 application.DrawFrame(gameTime);
             });
+
+            application.Dispose();
         }
 
         private static void ConfigureGraphicsContext(Application application, Window window)
         {
 #if OPENGL
-            GraphicsContext graphicsContext = new global::Evergine.OpenGL.GLGraphicsContext();
+            var graphicsContext = new global::Evergine.OpenGL.GLGraphicsContext();
 #else
-            GraphicsContext graphicsContext = new global::Evergine.DirectX11.DX11GraphicsContext();
+            var graphicsContext = new global::Evergine.DirectX11.DX11GraphicsContext();
 #endif
             graphicsContext.CreateDevice();
-            SwapChainDescription swapChainDescription = new SwapChainDescription()
+            var swapChainDescription = new SwapChainDescription()
             {
                 SurfaceInfo = window.SurfaceInfo,
                 Width = window.Width,
@@ -100,11 +101,11 @@ namespace Floorplan3D.Windows
                 DepthStencilTargetFormat = PixelFormat.D24_UNorm_S8_UInt,
                 DepthStencilTargetFlags = TextureFlags.DepthStencil,
                 SampleCount = TextureSampleCount.None,
-                IsWindowed = windowed,
+                IsWindowed = Windowed,
                 RefreshRate = 60
             };
             var swapChain = graphicsContext.CreateSwapChain(swapChainDescription);
-            swapChain.VerticalSync = vSync;
+            swapChain.VerticalSync = VSync;
 
             var graphicsPresenter = application.Container.Resolve<GraphicsPresenter>();
             var firstDisplay = new Display(window, swapChain);
@@ -114,3 +115,4 @@ namespace Floorplan3D.Windows
         }
     }
 }
+

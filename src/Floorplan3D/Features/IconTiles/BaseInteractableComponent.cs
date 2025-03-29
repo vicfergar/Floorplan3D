@@ -1,5 +1,4 @@
-﻿using System.Diagnostics;
-using Evergine.Framework;
+﻿using Evergine.Framework;
 using Evergine.Mathematics;
 
 namespace Floorplan3D

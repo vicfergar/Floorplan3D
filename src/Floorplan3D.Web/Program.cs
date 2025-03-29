@@ -3,9 +3,14 @@ using Evergine.Framework;
 using Evergine.Framework.Graphics;
 using Evergine.Framework.Services;
 using Evergine.OpenGL;
+using Evergine.Serialization.Converters;
 using Evergine.Web;
+using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
+using Microsoft.JSInterop;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Text.Json.Serialization;
 
 namespace Floorplan3D.Web
 {
@@ -22,6 +27,18 @@ namespace Floorplan3D.Web
             // Hack for AOT dll dependencies
             var cp = new global::Evergine.Components.Graphics3D.Spinner();
 
+            // Wasm instance need to be initialized here for debugger
+            global::Evergine.Web.WebAssembly.HostConfiguration = new HostConfiguration();
+            wasm = global::Evergine.Web.WebAssembly.GetInstance();
+        }
+
+        [JSInvokable("Floorplan3D.Web.Program:Run")]
+        public static void Run(string canvasId)
+        {
+            // Enable Trace
+            Trace.Listeners.Add(new TextWriterTraceListener(Console.Out));
+            Trace.AutoFlush = true;
+            
             // Create app
             application = new MainApplication();
 
@@ -29,19 +46,14 @@ namespace Floorplan3D.Web
             windowsSystem = new WebWindowsSystem();
             application.Container.RegisterInstance(windowsSystem);
 
-            // Wasm instance need to be initialized here for debugger
-            wasm = global::Evergine.Web.WebAssembly.GetInstance();
-        }
-
-        public static void Run(string canvasId)
-        {
             var canvas = wasm.GetElementById(canvasId);
             var surface = (WebSurface)windowsSystem.CreateSurface(canvas);
             appCanvas[canvasId] = surface;
 
+            ConfigureGraphicsContext(application, surface, canvasId);
+
             var supportWebGL2 = canvas.Invoke<JSObject>("getContext", true, "webgl2") != null;
             var webGLBackend = supportWebGL2 ? GraphicsBackend.WebGL2 : GraphicsBackend.WebGL1;
-            ConfigureGraphicsContext(application, surface, webGLBackend);
             application.Container.RegisterInstance(new WebMDITextureLoader(canvas, webGLBackend));
 
             // Audio is currently unsupported
@@ -65,6 +77,14 @@ namespace Floorplan3D.Web
                 });
         }
 
+        [JSInvokable("Floorplan3D.Web.Program:Destroy")]
+        public static void Destroy(string canvasId)
+        {
+            application.Dispose();
+            application = null;
+        }
+
+        [JSInvokable("Floorplan3D.Web.Program:UpdateCanvasSize")]
         public static void UpdateCanvasSize(string canvasId)
         {
             if (appCanvas.TryGetValue(canvasId, out var surface))
@@ -73,16 +93,14 @@ namespace Floorplan3D.Web
             }
         }
 
-        private static void ConfigureGraphicsContext(Application application, Surface surface, GraphicsBackend graphicsBackend)
+        private static void ConfigureGraphicsContext(Application application, Surface surface, string canvasId)
         {
-            // Enabled web canvas antialias (MSAA)
-            wasm.Invoke("window._evergine_EGL");
+			// Enabled web canvas antialias (MSAA)
+            wasm.Invoke("window._evergine_EGL", false, "webgl2", canvasId);
 
-            Trace.WriteLine($"GraphicsBackend: {graphicsBackend}");
-            var graphicsContext = new GLGraphicsContext(graphicsBackend);
+            GraphicsContext graphicsContext = new GLGraphicsContext(GraphicsBackend.WebGL2);
             graphicsContext.CreateDevice();
-
-            var swapChainDescription = new SwapChainDescription()
+            SwapChainDescription swapChainDescription = new SwapChainDescription()
             {
                 SurfaceInfo = surface.SurfaceInfo,
                 Width = surface.Width,
@@ -103,6 +121,18 @@ namespace Floorplan3D.Web
             graphicsPresenter.AddDisplay("DefaultDisplay", firstDisplay);
 
             application.Container.RegisterInstance(graphicsContext);
+        }
+
+        private class HostConfiguration : IWasmHostConfiguration
+        {
+            public void ConfigureHost(WebAssemblyHostBuilder builder)
+            {
+            }
+
+            public void RegisterJsonConverters(IList<JsonConverter> converters)
+            {
+                converters.AddEvergineConverters();
+            }
         }
     }
 }

@@ -45,10 +45,10 @@ Items:
         ShadowDistance: 80.0
         ShadowOpacity: 1.0
         SplitDistance:
-          - 0.0
-          - 0.0
-          - 0.0
-          - 0.0
+          - 12.875
+          - 28.625
+          - 67.0
+          - 225.25
         Temperature: 6500.0
       - !Evergine.Framework.Graphics.SunComponent,Evergine.Framework
         Id: 6f2b70f3-a505-49a6-9454-130b04d48cd3
@@ -81,7 +81,7 @@ Items:
         Id: bb44cd62-4d92-418a-8a42-bbc2ed2b6f07
         AsignedTo: Default
         IsEnabled: true
-        Material: b37540b0-05b2-4d03-a266-0931448b8990
+        Material: 0806a65e-be8c-4204-997c-17e282dfb17c
         UseCopy: false
       - !Evergine.Components.Graphics3D.SphereMesh,Evergine.Components
         Id: 3ef37285-f016-4173-bbf0-278ec1624224
@@ -193,10 +193,13 @@ Items:
                   X: 1.0
                   Y: 1.0
                   Z: 1.0
+              - !Floorplan3D.InteractionController,Floorplan3D
+                Id: 08a0ffc9-272e-4c96-a44a-b579742537eb
+                IsEnabled: true
+                UpdateOrder: 0.5
               - !Evergine.Framework.Graphics.Camera3D,Evergine.Framework
-                Id: 5b10653e-93d2-48e7-884f-a07b2ac173ee
+                Id: a576becd-d1f5-4285-8322-d64d842df57d
                 Aperture: 1.0
-                AspectRatio: 1.60337555
                 AutoDepthBounds: false
                 AutoExposureEnabled: false
                 CameraOrder: 0.0
@@ -204,9 +207,6 @@ Items:
                 ClearFlags: All
                 ClearStencil: 0
                 Compensation: 0.0
-                DepthRange:
-                  MaxDepth: 1.0
-                  MinDepth: 0.0
                 DisplayTag: null
                 Exposure: 1.0
                 FarPlane: 1000.0
@@ -227,13 +227,6 @@ Items:
                 LogLuminanceRange: 12.0
                 MinLogLuminance: -10.0
                 NearPlane: 0.100000001
-                ScreenViewport:
-                  Height: 237.0
-                  MaxDepth: 1.0
-                  MinDepth: 0.0
-                  Width: 380.0
-                  X: 0.0
-                  Y: 0.0
                 Sensitivity: 100.0
                 SensorSize:
                   X: 36.0
@@ -241,15 +234,7 @@ Items:
                 ShutterSpeed: 1.20000005
                 TAU: 1.10000002
                 TagFilter: null
-                UpVector:
-                  X: 0.0
-                  Y: 1.0
-                  Z: 0.0
                 UsePhysicalParameters: false
-              - !Floorplan3D.InteractionController,Floorplan3D
-                Id: 08a0ffc9-272e-4c96-a44a-b579742537eb
-                IsEnabled: true
-                UpdateOrder: 0.5
             Children: []
             Id: 9841b6b3-9c09-4b60-b442-a5c63257ee02
         Id: e7917634-2206-47f1-b0f5-3de9e4cd5c00

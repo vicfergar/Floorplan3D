@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using Evergine.Common.Input;
 using Evergine.Common.Input.Pointer;
 using Evergine.Framework;

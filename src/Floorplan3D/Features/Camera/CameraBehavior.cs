@@ -5,7 +5,6 @@
 // Copyright © 2019 Wave Engine S.L. All rights reserved. Use is subject to license terms.
 
 using System;
-using System.Diagnostics;
 using System.Linq;
 using Evergine.Framework;
 using Evergine.Framework.Graphics;
