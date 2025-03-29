@@ -8,21 +8,23 @@ on:
 
 env:
   build_type: Release
-  project_path: src/Floorplan3D.Web/Floorplan3D.Web.csproj
-  wwwroot_pah: src/Floorplan3D.Web/bin/Release/net6.0/publish/wwwroot/*
+  project_path: src/Floorplan3D.Web.Server/Floorplan3D.Web.Server.csproj
+  wwwroot_pah: src/Floorplan3D.Web/bin/Release/net8.0/publish/wwwroot/*
 
 jobs:
   build:
     name: Create Release
     runs-on: windows-latest
     steps:
-    - uses: actions/checkout@v2  
-    - name: Setup .NET 6.0
+    - uses: actions/checkout@v2
+    - name: Setup .NET 8.0 and 9.0
       uses: actions/setup-dotnet@v1
       with:
-        dotnet-version: 6.0.x
+        dotnet-version: |
+          8.0.x
+          9.0.x
     - name: Install Wasm tools
-      run: dotnet workload install wasm-tools --skip-manifest-update
+      run: dotnet workload install wasm-tools-net8
     - name: Restore NuGet dependencies
       run: dotnet restore ${{ env.project_path }}
     - name: Build
