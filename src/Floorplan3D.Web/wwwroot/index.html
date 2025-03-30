@@ -7,6 +7,7 @@
       content="width=device-width, initial-scale=1.0, user-scalable=yes"
     />
     <title>Floorplan3D.Web</title>
+    <base href="./" />
     <link
       rel="stylesheet"
       href="https://fonts.googleapis.com/css?family=Barlow"
@@ -47,7 +48,14 @@
         "Floorplan3D.Web.Program",
         new EvergineModule()
       );
-      Blazor.start().then(function () {
+        Blazor.start({
+            // Manually start blazor and override boot load to redirect to relative paths
+            loadBootResource: function (type, name, defaultUri, integrity) {
+                if (type == 'dotnetjs') {
+                    return `_framework/${name}`;
+                }
+            }
+        }).then(function () {
         // It is not mandatory to run Evergine now, but it must run after blazor is started
         app.startEvergine();
       });
