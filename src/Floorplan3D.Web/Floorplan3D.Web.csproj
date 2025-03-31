@@ -43,6 +43,30 @@
     <PackageReference Include="Evergine.Web" Version="2025.3.18.7" />
   </ItemGroup>
 
+  <UsingTask TaskName="UpdateAssetUrls" TaskFactory="CodeTaskFactory" AssemblyFile="$(MSBuildToolsPath)\Microsoft.Build.Tasks.Core.dll">
+    <ParameterGroup>
+      <InputFile ParameterType="System.String" Required="true" />
+      <OutputFile ParameterType="System.String" Required="true" />
+    </ParameterGroup>
+    <Task>
+    <Using Namespace="System.IO" />
+    <Using Namespace="System.Text" />
+      <Code Type="Fragment" Language="cs">
+        <![CDATA[
+          string content = File.ReadAllText(InputFile);
+          content = content.Replace("url:'/Content/", "url:'Content/");
+          File.WriteAllText(OutputFile, content, Encoding.UTF8);
+        ]]>
+      </Code>
+    </Task>
+  </UsingTask>
+
+
+  <!-- Workaround to ensure that assets URLs are relative -->
+  <Target Name="ModifyAssetsJs" AfterTargets="PreloadContent">
+    <UpdateAssetUrls InputFile="$(IntermediateOutputPath)assets.js" OutputFile="$(IntermediateOutputPath)assets.js" Condition="Exists('$(IntermediateOutputPath)assets.js')" />
+  </Target>
+
   <ItemGroup>
     <ProjectReference Include="..\Floorplan3D\Floorplan3D.csproj" />
   </ItemGroup>
