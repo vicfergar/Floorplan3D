@@ -43,23 +43,8 @@
     <PackageReference Include="Evergine.Web" Version="2025.3.18.7" />
   </ItemGroup>
 
-  <UsingTask TaskName="UpdateAssetUrls" TaskFactory="CodeTaskFactory" AssemblyFile="$(MSBuildToolsPath)\Microsoft.Build.Tasks.Core.dll">
-    <ParameterGroup>
-      <InputFile ParameterType="System.String" Required="true" />
-      <OutputFile ParameterType="System.String" Required="true" />
-    </ParameterGroup>
-    <Task>
-    <Using Namespace="System.IO" />
-    <Using Namespace="System.Text" />
-      <Code Type="Fragment" Language="cs">
-        <![CDATA[
-          string content = File.ReadAllText(InputFile);
-          content = content.Replace("url:'/Content/", "url:'Content/");
-          File.WriteAllText(OutputFile, content, Encoding.UTF8);
-        ]]>
-      </Code>
-    </Task>
-  </UsingTask>
+  
+  <UsingTask TaskName="UpdateAssetUrls" AssemblyFile="UpdateAssetUrls.dll" />
 
 
   <!-- Workaround to ensure that assets URLs are relative -->
