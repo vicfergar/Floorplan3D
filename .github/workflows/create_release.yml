@@ -8,8 +8,9 @@ on:
 
 env:
   build_type: Release
-  project_path: src/Floorplan3D.Web.Server/Floorplan3D.Web.Server.csproj
-  wwwroot_pah: src/Floorplan3D.Web/bin/Release/net8.0/publish/wwwroot/*
+  server_project_path: src/Floorplan3D.Web.Server/Floorplan3D.Web.Server.csproj
+  web_project_path: src/Floorplan3D.Web/Floorplan3D.Web.csproj
+  publish_pah: src/Floorplan3D.Web.Server/bin/Release/net8.0/publish/*
 
 jobs:
   build:
@@ -24,11 +25,13 @@ jobs:
     - name: Install Wasm tools
       run: dotnet workload install wasm-tools
     - name: Restore NuGet dependencies
-      run: dotnet restore ${{ env.project_path }}
-    - name: Build
-      run: dotnet publish --no-restore ${{ env.project_path }} --configuration ${{ env.build_type }}   
+      run: dotnet restore ${{ env.server_project_path }}
+    - name: Build Web Project
+      run: dotnet build ${{ env.web_project_path }} --configuration ${{ env.build_type }}
+    - name: Publish Server Project
+      run: dotnet publish --no-restore ${{ env.server_project_path }} --configuration ${{ env.build_type }}
     - name: Create artifact
-      run: Compress-Archive -Path ${{ env.wwwroot_pah }} -DestinationPath wwwroot.zip
+      run: Compress-Archive -Path ${{ env.publish_pah }} -DestinationPath app.zip
     - name: Create Release
       id: create_release
       uses: actions/create-release@v1
@@ -45,7 +48,7 @@ jobs:
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
-        upload_url: ${{ steps.create_release.outputs.upload_url }} # This pulls from the CREATE RELEASE step above, referencing it's ID to get its outputs object, which include a `upload_url`. See this blog post for more info: https://jasonet.co/posts/new-features-of-github-actions/#passing-data-to-future-steps 
-        asset_path: ./wwwroot.zip
-        asset_name: wwwroot.zip
+        upload_url: ${{ steps.create_release.outputs.upload_url }}
+        asset_path: ./app.zip
+        asset_name: app.zip
         asset_content_type: application/zip
