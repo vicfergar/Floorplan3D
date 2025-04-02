@@ -31,19 +31,9 @@ jobs:
       uses: actions/setup-dotnet@v1
       with:
         dotnet-version: 8.0.x
-    - name: Setup .NET 9.0 (Web Only)
-      if: ${{ matrix.profile == 'web' }}
-      uses: actions/setup-dotnet@v1
-      with:
-        dotnet-version: 9.0.x
     - name: Install Wasm tools (Web Only)
       if: ${{ matrix.profile == 'web' }}
-      run: dotnet workload install wasm-tools-net8
-    - name: Setup Node.js (Web Only)
-      if: ${{ matrix.profile == 'web' }}
-      uses: actions/setup-node@v3
-      with:
-        node-version: '22.x'
+      run: dotnet workload install wasm-tools
     - name: Restore NuGet dependencies
       run: dotnet restore ${{ matrix.solution_path }}
     - name: Build

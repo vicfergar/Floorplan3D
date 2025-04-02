@@ -17,14 +17,12 @@ jobs:
     runs-on: windows-latest
     steps:
     - uses: actions/checkout@v2
-    - name: Setup .NET 8.0 and 9.0
+    - name: Setup .NET 8.0
       uses: actions/setup-dotnet@v1
       with:
-        dotnet-version: |
-          8.0.x
-          9.0.x
+        dotnet-version: 8.0.x
     - name: Install Wasm tools
-      run: dotnet workload install wasm-tools-net8
+      run: dotnet workload install wasm-tools
     - name: Restore NuGet dependencies
       run: dotnet restore ${{ env.project_path }}
     - name: Build
