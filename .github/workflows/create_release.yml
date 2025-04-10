@@ -8,8 +8,7 @@ on:
 
 env:
   build_type: Release
-  server_project_path: src/Floorplan3D.Web.Server/Floorplan3D.Web.Server.csproj
-  web_project_path: src/Floorplan3D.Web/Floorplan3D.Web.csproj
+  project_path: src/Floorplan3D.Web.Server/Floorplan3D.Web.Server.csproj
   publish_pah: src/Floorplan3D.Web.Server/bin/Release/net8.0/publish/*
 
 jobs:
@@ -25,11 +24,9 @@ jobs:
     - name: Install Wasm tools
       run: dotnet workload install wasm-tools
     - name: Restore NuGet dependencies
-      run: dotnet restore ${{ env.server_project_path }}
-    - name: Build Web Project
-      run: dotnet build ${{ env.web_project_path }} --configuration ${{ env.build_type }}
-    - name: Publish Server Project
-      run: dotnet publish --no-restore ${{ env.server_project_path }} --configuration ${{ env.build_type }}
+      run: dotnet restore ${{ env.project_path }}
+    - name: Build
+      run: dotnet publish --no-restore ${{ env.project_path }} --configuration ${{ env.build_type }}   
     - name: Create artifact
       run: Compress-Archive -Path ${{ env.publish_pah }} -DestinationPath app.zip
     - name: Create Release
