@@ -28,7 +28,7 @@
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Evergine.Framework" Version="2025.3.18.659" />
-    <PackageReference Include="Evergine.HLSLEverywhere" Version="2025.3.18.659" />
+    <PackageReference Include="Evergine.HLSLEverywhere" Version="2025.3.18.659" PrivateAssets="all"/>
     <PackageReference Include="Evergine.OpenGL" Version="2025.3.18.659" />
     <PackageReference Include="Evergine.Serialization.Converters" Version="2025.3.18.659" />
     <PackageReference Include="Evergine.Targets" Version="2025.3.18.659" />
